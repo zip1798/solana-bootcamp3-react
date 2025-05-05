@@ -32,6 +32,20 @@ const DUMMY_TOKENS: Record<string, TokenMetadata> = {
     name: "Burger",
     decimals: 9,
   },
+  "4hRT4osNHRg4GxfkXDGixSx5RrRVCi58ZAYgAH6sX5qv": {
+    address: "4hRT4osNHRg4GxfkXDGixSx5RrRVCi58ZAYgAH6sX5qv",
+    icon: "🧮",
+    symbol: "UAB-3",
+    name: "UAB-3",
+    decimals: 2,
+  },
+  "4RSZhPSde2WfgR9KducPgCVPUnqz4dFsQcyuUviKKf2V": {
+    address: "4RSZhPSde2WfgR9KducPgCVPUnqz4dFsQcyuUviKKf2V",
+    icon: "🧝‍♂️",
+    symbol: "BCMANA",
+    name: "BCMANA",
+    decimals: 2,
+  },
   So11111111111111111111111111111111111111112: {
     address: "So11111111111111111111111111111111111111112",
     symbol: "SOL",

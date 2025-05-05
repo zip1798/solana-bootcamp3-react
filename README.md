@@ -22,7 +22,7 @@ Before you begin, ensure you have the following installed:
 - A Solana wallet (e.g., Phantom, Solflare)
 
 ## Installation
-
+ 
 1. Clone the repository:
 
 ```bash

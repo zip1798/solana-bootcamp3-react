@@ -5,6 +5,13 @@ import { PublicKey } from "@solana/web3.js";
 import escrowIdl from "./escrow.json";
 import { Escrow } from "./idlType";
 import { config } from "./config";
+import { randomBytes } from "crypto";
+import { getAssociatedTokenAddressSync } from "@solana/spl-token";
+
+import { 
+  TOKEN_PROGRAM_ID, 
+  // TOKEN_2022_PROGRAM_ID 
+} from "@solana/spl-token";
 
 export class EscrowProgram {
   protected program: Program<Escrow>;
@@ -37,13 +44,50 @@ export class EscrowProgram {
     tokenAmountA: number,
     tokenAmountB: number
   ) {
-    try {
-      console.log(tokenMintA, tokenMintB, tokenAmountA, tokenAmountB);
-      return null;
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
+    const offerId = new BN(randomBytes(8));
+    const offerAddress = this.createOfferId(offerId);
+
+    const vault = getAssociatedTokenAddressSync(
+      tokenMintA,
+      offerAddress,
+      true,
+      TOKEN_PROGRAM_ID
+    );
+
+    const makerTokenAccountA = getAssociatedTokenAddressSync(
+      tokenMintA,
+      this.wallet.publicKey,
+      true,
+      TOKEN_PROGRAM_ID
+    );
+
+    const txInstruction = await this.program.methods
+      .makeOffer(offerId, new BN(tokenAmountA), new BN(tokenAmountB))
+      .accounts({
+        maker: this.wallet.publicKey,
+        tokenMintA: tokenMintA,
+        tokenMintB: tokenMintB,
+        makerTokenAccountA: makerTokenAccountA,
+        vault: vault,
+        tokenProgram: TOKEN_PROGRAM_ID,
+      })
+      .instruction();
+
+    const messageV0 = new web3.TransactionMessage({
+      payerKey: this.wallet.publicKey,
+      recentBlockhash: (await this.connection.getLatestBlockhash()).blockhash,
+      instructions: [txInstruction],
+    }).compileToLegacyMessage();
+
+    const versionedTransaction = new web3.VersionedTransaction(messageV0);
+    if (!this.program.provider.sendAndConfirm) return;
+
+    const response = await this.program.provider.sendAndConfirm(
+      versionedTransaction,
+      []
+    );
+    if (!this.program.provider.publicKey) return;
+    return response;
   }
 
   async takeOffer(
@@ -52,12 +96,65 @@ export class EscrowProgram {
     tokenMintA: PublicKey,
     tokenMintB: PublicKey
   ) {
-    try {
-      console.log(maker, offer, tokenMintA, tokenMintB);
-      return null;
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
+    const takerTokenAccountA = getAssociatedTokenAddressSync(
+      tokenMintA,
+      this.wallet.publicKey,
+      true,
+      TOKEN_PROGRAM_ID
+    );
+
+    const takerTokenAccountB = getAssociatedTokenAddressSync(
+      tokenMintB,
+      this.wallet.publicKey,
+      true,
+      TOKEN_PROGRAM_ID
+    );
+    
+    const makerTokenAccountB = getAssociatedTokenAddressSync(
+      tokenMintB,
+      maker,
+      true,
+      TOKEN_PROGRAM_ID
+    );
+
+    const vault = getAssociatedTokenAddressSync(
+      tokenMintA,
+      offer,
+      true,
+      TOKEN_PROGRAM_ID
+    );
+
+    const accounts = {
+      maker,
+      offer,
+      taker: this.wallet.publicKey,
+      takerTokenAccountA,
+      takerTokenAccountB,
+      vault,
+      tokenProgram: TOKEN_PROGRAM_ID,
+      makerTokenAccountB
+    };
+
+    const txInstruction = await this.program.methods
+      .takeOffer()
+      .accounts({...accounts})
+      .instruction();
+    
+    const messageV0 = new web3.TransactionMessage({
+      payerKey: this.wallet.publicKey,
+      recentBlockhash: (await this.connection.getLatestBlockhash()).blockhash,
+      instructions: [txInstruction],
+    }).compileToLegacyMessage();
+
+    const versionedTransaction = new web3.VersionedTransaction(messageV0);
+    if (!this.program.provider.sendAndConfirm) return;
+
+    const response = await this.program.provider.sendAndConfirm(
+      versionedTransaction,
+      []
+    );
+    if (!this.program.provider.publicKey) return;
+    return response;
   }
+
 }

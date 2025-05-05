@@ -22,6 +22,16 @@ export const METADATA = {
     icon: "🍔",
     symbol: "Burger",
   },
+  ["4hRT4osNHRg4GxfkXDGixSx5RrRVCi58ZAYgAH6sX5qv"]: {
+    address: "4hRT4osNHRg4GxfkXDGixSx5RrRVCi58ZAYgAH6sX5qv",
+    icon: "🧮",
+    symbol: "UAB-3",
+  },
+  ["4RSZhPSde2WfgR9KducPgCVPUnqz4dFsQcyuUviKKf2V"]: {
+    address: "4RSZhPSde2WfgR9KducPgCVPUnqz4dFsQcyuUviKKf2V",
+    icon: "🧝‍♂️",
+    symbol: "BCMANA",
+  },
 };
 
 export const query = gql`
