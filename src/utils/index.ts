@@ -16,21 +16,37 @@ export const METADATA = {
     address: "GdHsojisNu8RH92k4JzF1ULzutZgfg8WRL5cHkoW2HCK",
     icon: "🌭",
     symbol: "HOT",
+    is_2022: false,
   },
   ["9NCKufE7BQrTXTang2WjXjBe2vdrfKArRMq2Nwmn4o8S"]: {
     address: "9NCKufE7BQrTXTang2WjXjBe2vdrfKArRMq2Nwmn4o8S",
     icon: "🍔",
     symbol: "Burger",
+    is_2022: false,
   },
   ["4hRT4osNHRg4GxfkXDGixSx5RrRVCi58ZAYgAH6sX5qv"]: {
     address: "4hRT4osNHRg4GxfkXDGixSx5RrRVCi58ZAYgAH6sX5qv",
     icon: "🧮",
     symbol: "UAB-3",
+    is_2022: false,
   },
   ["4RSZhPSde2WfgR9KducPgCVPUnqz4dFsQcyuUviKKf2V"]: {
     address: "4RSZhPSde2WfgR9KducPgCVPUnqz4dFsQcyuUviKKf2V",
     icon: "🧝‍♂️",
     symbol: "BCMANA",
+    is_2022: false,
+  },
+  "FWyQo9E6qxgyeSybGFrAYrAcAwQ4YuWFG2WZ7cjV9kk3": {
+    address: "FWyQo9E6qxgyeSybGFrAYrAcAwQ4YuWFG2WZ7cjV9kk3",
+    icon: "📊",
+    symbol: "UAB-3 2022",
+    is_2022: true,
+  },
+  "4iBo68C5kGLropXPrKjw6fQBfbS7cGw9zXsVZreN1mYw": {
+    address: "4iBo68C5kGLropXPrKjw6fQBfbS7cGw9zXsVZreN1mYw",
+    icon: "🔐",
+    symbol: "OTH 2022",
+    is_2022: true,
   },
 };
 

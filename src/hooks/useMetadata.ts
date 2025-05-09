@@ -46,6 +46,22 @@ const DUMMY_TOKENS: Record<string, TokenMetadata> = {
     name: "BCMANA",
     decimals: 2,
   },
+
+  "FWyQo9E6qxgyeSybGFrAYrAcAwQ4YuWFG2WZ7cjV9kk3": {
+    address: "FWyQo9E6qxgyeSybGFrAYrAcAwQ4YuWFG2WZ7cjV9kk3",
+    icon: "📊",
+    symbol: "UAB-3 2022",
+    name: "UAB-3  2022",
+    decimals: 2,
+  },
+  "4iBo68C5kGLropXPrKjw6fQBfbS7cGw9zXsVZreN1mYw": {
+    address: "4iBo68C5kGLropXPrKjw6fQBfbS7cGw9zXsVZreN1mYw",
+    icon: "🔐",
+    symbol: "OTH 2022",
+    name: "Other token 2022",
+    decimals: 2,
+  },
+
   So11111111111111111111111111111111111111112: {
     address: "So11111111111111111111111111111111111111112",
     symbol: "SOL",

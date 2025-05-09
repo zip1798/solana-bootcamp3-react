@@ -210,7 +210,21 @@ export function CreateOfferDialog({
                     <SelectValue placeholder="Select token" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.entries(METADATA).map(([address, metadata]) => (
+                    {Object.entries(METADATA).filter(itm => {
+                      let result = true;
+                      let tokenA = formData.tokenA;
+                      if (tokenA in METADATA) {
+                        if (METADATA[tokenA as keyof typeof METADATA].is_2022) {
+                          result = itm[1].is_2022
+                        } else {
+                          result = !itm[1].is_2022
+                        }
+                      }
+                      if (tokenA === itm[0]) {
+                        result = false;
+                      }
+                      return result;
+                    }).map(([address, metadata]) => (
                       <SelectItem key={address} value={address}>
                         <div className="flex items-center gap-2">
                           <span>{metadata.icon}</span>
